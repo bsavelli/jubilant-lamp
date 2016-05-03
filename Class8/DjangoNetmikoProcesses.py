@@ -39,6 +39,12 @@ def main():
 		print a_proc
 		a_proc.join()
 
+	while not q.empty():
+		my_dict = q.get()
+		for k,v in my_dict.iteritems():
+			print k
+			print v
+
 	print "\nElapsed time: " + str(datetime.now() - start_time)
 
 

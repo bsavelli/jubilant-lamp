@@ -1,4 +1,0 @@
-This is a file being uploaded from my local lab directory to my GitHub repository. 
-
-Brett Savelli
-

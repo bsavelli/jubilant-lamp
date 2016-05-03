@@ -1,0 +1,46 @@
+---
+
+- name: Arista Configure
+  hosts: arista
+
+  tasks:
+    - name: Configure EthernetX-Y for access mode, VLAN101
+      eos_switchport: name={{ item }} mode=access access_vlan=101 trunk_allowed_vlans=1-4094 trunk_native_vlan=1
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+      with_items:
+        - EthernetX
+        - EthernetY 
+
+    - name: Reset EthernetX-Y description to default
+      eos_interface: name=EthernetX-Y description=""
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+
+    - name: Remove VLANs
+      eos_vlan: name={{ item.name }} vlanid={{ item.vlanid }} state=absent
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+      with_items:
+        - {name: BLUE, vlanid: 105}
+        - {name: Wifi_Users, vlanid: 115}
+        - {name: Winning, vlanid: 777}
+
+    - name: Cleanup LAG
+      eos_portchannel: name=Port-Channel1 state=absent
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+
+

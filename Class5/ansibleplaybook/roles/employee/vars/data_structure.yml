@@ -1,0 +1,8 @@
+---
+test_devices:
+  - {hostname: 'aaa00-aa01', ip_addr: '10.0.1.50', default_gateway: '10.0.1.1', DHCP: True, dhcp_network: 1.1.1.0 }
+  - {hostname: 'aaa00-aa02', ip_addr: '10.0.2.50', default_gateway: '10.0.2.1', DHCP: True, dhcp_network: 1.1.2.0 }
+  - {hostname: 'aaa00-aa03', ip_addr: '10.0.3.50', default_gateway: '10.0.3.1', DHCP: True, dhcp_network: 1.1.3.0 }
+  - {hostname: 'aaa00-aa04', ip_addr: '10.0.4.50', default_gateway: '10.0.4.1', DHCP: False, dhcp_network: none }
+  - {hostname: 'aaa00-aa05', ip_addr: '10.0.5.50', default_gateway: '10.0.5.1', DHCP: False, dhcp_network: none }
+  - {hostname: 'aaa00-aa06', ip_addr: '10.0.6.50', default_gateway: '10.0.6.1', DHCP: False, dhcp_network: none }

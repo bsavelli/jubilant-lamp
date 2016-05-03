@@ -1,0 +1,6 @@
+---
+  hosts: local
+  task:
+     name: Generate configuration file
+     template: src=/Users/bsavelli/Desktop/PythonClassDocuments/Class5/config_template.j2
+                 dest=/Users/bsavelli/Desktop/PythonClassDocuments/Class5/generated_files/{{item.hostname}}.txt

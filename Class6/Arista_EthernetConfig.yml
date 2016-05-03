@@ -1,0 +1,27 @@
+---
+
+- name: Arista Ethernet Configuration tool
+  hosts: arista
+
+  tasks:
+    - name: Configure Ethernet Interface description
+      eos_interface: name={{ item }} description="*** IN USE ***"
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+      with_items:
+        - Ethernet2
+        - Ethernet5
+
+    - name: Configure Ethernet Interface Switchport Options
+      eos_switchport: name={{ item.name }} mode=access access_vlan={{ item.vlanid }}
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+      with_items:
+        - {name: Ethernet2, vlanid: 105}
+        - {name: Ethernet5, vlanid: 115}

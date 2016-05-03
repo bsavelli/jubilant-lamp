@@ -1,0 +1,41 @@
+---
+
+- name: Arista Cleanup
+  hosts: arista
+
+  tasks:
+    - name: Configure Ethernet2&5 for access mode, VLAN101
+      eos_switchport: name={{ item }} mode=access access_vlan=101 trunk_allowed_vlans=1-4094 trunk_native_vlan=1
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+      with_items:
+        - Ethernet2
+        - Ethernet5 
+
+    - name: Reset EthernetX-Y description to default
+      eos_interface: name={{item}} description=""
+            username={{ eapi_username }}
+            password={{ eapi_password }}
+            host={{ eapi_hostname }}
+            port={{ eapi_port }}
+            transport=https
+      with_items:
+        - Ethernet2
+        - Ethernet5
+
+    - name: Remove VLANs
+      eos_vlan: name={{item.name}} vlanid={{item.vlanid}} state=absent
+           username={{ eapi_username }}
+           password={{ eapi_password }}
+           host={{ eapi_hostname }}
+           port={{ eapi_port }}
+           transport=https
+      with_items:
+        - {name: PERIWINKLE, vlanid: 105}
+        - {name: Wifi_Users, vlanid: 115}
+        - {name: Winning, vlanid: 777}
+
+
